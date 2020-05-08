@@ -18,4 +18,6 @@ func TestSimplifyPath(t *testing.T) {
 		//将当前G与当前M（核心线程）绑定
 		runtime.LockOSThread()
 	}()
+
+	runtime.GC()
 }
