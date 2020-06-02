@@ -62,3 +62,46 @@ func isCircle(head *ListNode) bool {
 
 	return false
 }
+
+
+/******** 二面：实现一个最大栈，思路：借助一个辅助栈实现 ********/
+
+type Stack struct {
+	tab        []int
+	replicaTab []int
+	top        int
+}
+
+func (s *Stack) Push(n int) {
+	s.top++
+	s.tab[s.top] = n
+
+	if s.top > 0 {
+		if s.replicaTab[s.top-1] < n {
+			s.replicaTab[s.top] = n
+		} else {
+			s.replicaTab[s.top] = s.replicaTab[s.top-1]
+		}
+	} else {
+		s.replicaTab[s.top] = n
+	}
+}
+
+func (s *Stack) Pop() (n int) {
+	if s.top < 0 {
+		return -1
+	}
+
+	n = s.tab[s.top]
+	s.top--
+
+	return n
+}
+
+func (s *Stack) Max() (n int) {
+	if s.top > 0 {
+		return s.replicaTab[s.top]
+	}
+
+	return -1
+}
